@@ -1,70 +1,84 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import CustomButton from "@/components/CustomButton";
+import CustomInput from "@/components/CustomInput";
+import React, {useState} from "react";
+
+import CustomField from "@/components/CustomField";
 
 export default function HomeScreen() {
+    const [text, setText] = useState('');
+
+    const handlePress = () => {
+        alert('Botão pressionado!');
+    };
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+   <ThemedView style={styles.container}>
+       <ThemedView style={styles.Server}>
+           <CustomInput label={'Servidor:'} value={text} onChangeText={setText} placeholder={'http://192.168.0.151'} />
+       </ThemedView>
+       <CustomButton title={'Conectar'} onPress={handlePress} color="#008080"/>
+       <ThemedView style={styles.acoes}>
+           <CustomButton title={'Ligar'} onPress={handlePress} color="#33D685"/>
+           <CustomButton title={'Desligar'} onPress={handlePress} color="#FF3333"/>
+       </ThemedView>
+       <ThemedView style={styles.modelo}>
+            <Text style={{fontSize: 24, color:'white', fontWeight:'bold'}}>Servidor Web ESP32</Text>
+            <Text style={{fontSize: 24, color:'white'}}>Sensor DHT</Text>
+       </ThemedView>
+       <ThemedView>
+           <CustomField imageSource={{ uri: '' }}
+                        label="Temperatura"
+                        value="25º" />
+           <CustomField imageSource={{ uri: 'https://via.placeholder.com/40' }}
+                        label="Umidade"
+                        value="79º" />
+       </ThemedView>
+       <ThemedView>
+           <Text style={styles.title}>Estado do LED: </Text>
+           <View style={styles.statusLed}>
+               <Text style={styles.title}>Teste</Text>
+           </View>
+       </ThemedView>
+   </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: "flex",
+        gap:5,
+        flex:1
+    },
+    modelo: {
+        gap: 15,
+        padding: 20,
+        alignItems:"center"
+    },
+    Server:{
+        display:"flex",
+        alignItems: 'center',
+        flexDirection:"row"
+    },
+    acoes:{
+        padding: 10,
+        gap: 20,
+        flexDirection: "row"
+    },
+    title: {
+        gap: 10,
+        color:'white',
+        fontSize: 15,
+        marginBottom: 20,
+    },
+    statusLed: {
+        borderRadius: 5,
+        padding: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#3385FF'
+    }
 });

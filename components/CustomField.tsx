@@ -2,7 +2,7 @@ import {View, Text, Image, StyleSheet, ImageSourcePropType} from 'react-native';
 
 interface CustomFieldProps {
     label: string,
-    value:string,
+    value:number,
     img: ImageSourcePropType;
 }
 
@@ -13,7 +13,7 @@ export default function CustomField ({label,value, img}: CustomFieldProps)
                 <Image source={img} style={styles.image} />
                 <View style={styles.textContainer}>
                     <Text style={styles.label}>{label}</Text>
-                    <Text style={styles.value}>{value}</Text>
+                    <Text style={styles.value}>{value}°</Text>
                 </View>
             </View>
         );
@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     value: {
-        backgroundColor:'red',
         textAlign:'right',
         color: 'white',
         fontSize: 24,

@@ -1,15 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
-
 import { ThemedView } from '@/components/ThemedView';
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/Button/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import React, {useState} from "react";
-
 import CustomField from "@/components/CustomField";
+import iconTermo from "@/assets/images/clima-quente.png";
+import iconUmidade from "@/assets/images/umidade.png";
 
 export default function HomeScreen() {
     const [text, setText] = useState('');
-
     const handlePress = () => {
         alert('Botão pressionado!');
     };
@@ -28,10 +27,10 @@ export default function HomeScreen() {
             <Text style={{fontSize: 24, color:'white'}}>Sensor DHT</Text>
        </ThemedView>
        <ThemedView>
-           <CustomField imageSource={{ uri: '' }}
+           <CustomField img={iconTermo}
                         label="Temperatura"
                         value="25º" />
-           <CustomField imageSource={{ uri: 'https://via.placeholder.com/40' }}
+           <CustomField img={iconUmidade}
                         label="Umidade"
                         value="79º" />
        </ThemedView>

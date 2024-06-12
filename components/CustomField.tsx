@@ -1,21 +1,22 @@
-// CustomField.js
+import {View, Text, Image, StyleSheet, ImageSourcePropType} from 'react-native';
 
-import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+interface CustomFieldProps {
+    label: string,
+    value:string,
+    img: ImageSourcePropType;
+}
 
-class CustomField extends Component {
-    render() {
-        const { imageSource, label, value } = this.props;
+export default function CustomField ({label,value, img}: CustomFieldProps)
+{
         return (
             <View style={styles.container}>
-                <Image source={imageSource} style={styles.image} />
+                <Image source={img} style={styles.image} />
                 <View style={styles.textContainer}>
                     <Text style={styles.label}>{label}</Text>
                     <Text style={styles.value}>{value}</Text>
                 </View>
             </View>
         );
-    }
 }
 
 const styles = StyleSheet.create({
@@ -24,7 +25,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
-        backgroundColor: 'green'
     },
     image: {
         width: 40,
@@ -47,5 +47,3 @@ const styles = StyleSheet.create({
         fontSize: 24,
     },
 });
-
-export default CustomField;

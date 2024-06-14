@@ -1,6 +1,11 @@
-# Welcome to your Expo app 👋
+# Seja Bem Vindo
+Este repositório foi construído para a realização de uma atividade acadêmica. Nele contém um aplicativo desenvolvido em Expo, cuja principal funcionalidade é se comunicar com uma API e fazer interações, como ligar/desligar uma lâmpada e capturar informações de temperatura e umidade. O responsável por fornecer os dados é um chip microcontrolador ESP32.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Simulacao_esp32_ssd1306
+Neste diretório possui a simulação desenvolvida na plataforma **wokwi**
+
+Link da Simulação: https://wokwi.com/projects/400708581580738561
+
 
 ## Get started
 
@@ -15,10 +20,3 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    ```bash
     npx expo start
    ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo

@@ -51,15 +51,12 @@ export default function HomeScreen() {
         }
     }
 
-    const handlePress = () => {
-        alert('Botão pressionado!');
-    };
-
   return (
    <ThemedView style={styles.container}>
        <ThemedView style={styles.Server}>
            <CustomInput label={'Servidor:'} value={text} onChangeText={setText} placeholder={'http://192.168.0.151'} />
        </ThemedView>
+       {error && <Text>Error: {error}</Text>}
        <CustomButton title={'Conectar'} onPress={fetchData} color="#008080"/>
        <Text></Text>
        <ThemedView style={styles.acoes}>

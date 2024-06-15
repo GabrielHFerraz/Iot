@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 10,
         borderBottomColor: '#ccc',
-        gap:5
+        gap:5,
+        backgroundColor: '#000'
     },
     label: {
         marginBottom: 5,

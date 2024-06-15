@@ -10,8 +10,10 @@ import axios from "axios";
 
 export default function HomeScreen() {
     const [text, setText] = useState('http://herculanodebiasi.dyndns-ip.com:9090');
+    const [textLed, setTextLed] = useState('');
     const [data, setData] = useState<temp | null>(null);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
+    
 
     interface temp {
         temperatura: number,
@@ -19,49 +21,57 @@ export default function HomeScreen() {
     }
 
     const fetchData = async () => {
-       try {
+       try {        
            const { data } = await axios.get<temp>(`${text}/lesensor`)
            setData(data)
        } catch (error: any){
-           setError(error.message);
+            setError(error.message);;
        }
     }
 
-    useEffect(() => {
-        fetchData(); // Execute fetchData initially
-        const intervalId = setInterval(fetchData, 5000); // Execute fetchData every 5 seconds
+    const fetchOff = async () => {
+        try {        
+            const off = await axios.get(`${text}/ledoff`)    
+                  
+        } catch (error: any){
+            setError(error.message);
+        }
+        setTextLed('Desligado');  
+     }
 
+     const fetchOn = async () => {
+        try {        
+            const off = await axios.get(`${text}/ledon`)    
+                  
+        } catch (error: any){
+            setError(error.message);
+        }
+        setTextLed('Ligado');  
+     }
+
+
+    useEffect(() => {        
+        fetchData(); // Execute fetchData initially    
+        
+        const intervalId = setInterval(fetchData, 60000); // Execute fetchData every 5 seconds
+        
         // Cleanup interval on component unmount
-        return () => clearInterval(intervalId);
+       // return () => clearInterval(intervalId);
     }, []);
+        
 
-    const on = async () => {
-        try {
-            const on = await axios.get(`${text}/ledon`)
-        } catch (error: any){
-            setError(error.message);
-        }
-    }
-
-    const off = async () => {
-        try {
-            const on = await axios.get(`${text}/ledoff`)
-        } catch (error: any){
-            setError(error.message);
-        }
-    }
 
   return (
    <ThemedView style={styles.container}>
-       <ThemedView style={styles.Server}>
-           <CustomInput label={'Servidor:'} value={text} onChangeText={setText} placeholder={'http://192.168.0.151'} />
-       </ThemedView>
-       {error && <Text>Error: {error}</Text>}
+       <ThemedView style={styles.Server}>        
+           <CustomInput label={'Servidor:'} value={text} onChangeText={setText} placeholder={'http://192.168.0.151'} />           
+       </ThemedView>    
+       {error && (<Text style={{color:'white'}}>{error}</Text>)}
        <CustomButton title={'Conectar'} onPress={fetchData} color="#008080"/>
        <Text></Text>
        <ThemedView style={styles.acoes}>
-           <CustomButton title={'Ligar'} onPress={on} color="#33D685"/>
-           <CustomButton title={'Desligar'} onPress={off} color="#FF3333"/>
+           <CustomButton title={'Ligar'} onPress={fetchOn} color="#33D685"/>
+           <CustomButton title={'Desligar'} onPress={fetchOff} color="#FF3333"/>
        </ThemedView>
        <ThemedView style={styles.modelo}>
             <Text style={{fontSize: 24, color:'white', fontWeight:'bold'}}>Servidor Web ESP32</Text>
@@ -75,10 +85,10 @@ export default function HomeScreen() {
                         label="Umidade"
                         value={data?.umidade} />
        </ThemedView>
-       <ThemedView>
-           <Text style={styles.title}>Estado do LED: </Text>
-           <View style={styles.statusLed}>
-               <Text style={styles.title}>Teste</Text>
+       <ThemedView style={{backgroundColor:'#000'}}>
+           <Text style={styles.title}>Estado do LED:</Text>
+           <View style={styles.statusLed}>               
+               <Text style={{color:'white'}}>{textLed}</Text>               
            </View>
        </ThemedView>
    </ThemedView>
@@ -91,28 +101,34 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         display: "flex",
         gap:5,
-        flex:1
+        flex:1,
+        backgroundColor: '#000'
     },
     modelo: {
         gap: 15,
         padding: 20,
-        alignItems:"center"
+        alignItems:"center",
+        backgroundColor: '#000'
     },
     Server:{
         display:"flex",
         alignItems: 'center',
-        flexDirection:"row"
+        flexDirection:"row",
+        backgroundColor: '#000'
     },
     acoes:{
         padding: 10,
         gap: 20,
-        flexDirection: "row"
+        flexDirection: "row",
+        backgroundColor: '#000'
+
     },
     title: {
         gap: 10,
         color:'white',
         fontSize: 15,
         marginBottom: 20,
+        backgroundColor: '#000'     
     },
     statusLed: {
         borderRadius: 5,
